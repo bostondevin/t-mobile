@@ -1,0 +1,43 @@
+<div class="date-container">
+  
+  <div class="search-container">
+    <input type="text" spellcheck="false" placeholder="Enter symbol or company" [(ngModel)]="searchText" (keyup)="symbolSearchChange($event)" />
+    <ul *ngIf="searchText">
+      <li (click)="selectSymbol(item)" *ngFor="let item of searchOptions"><b>{{item['1. symbol']}}</b> - {{item['2. name']}}</li>
+    </ul>
+  </div>
+
+</div>
+
+<h1 *ngIf="selectedSymbol">{{selectedSymbol['2. name']}} - {{selectedSymbol['1. symbol']}}</h1>
+
+<div class="date-container" *ngIf="selectedSymbol"> 
+  <input type="text" 
+      placeholder="Choose Date Range" 
+      ngxDaterangepickerMd 
+      [(ngModel)]="dateRange" 
+      class="form-control" 
+      [showCustomRangeLabel]="true" 
+      [ranges]="ranges" 
+      (change)="dateRangeChange($event)"
+       /><!-- [dateLimit]="today" -->
+</div>
+
+<div *ngIf="rendering" class="rendering"><fa-icon icon="spinner" [spin]="true"></fa-icon> &#160;Loading graph data - please wait</div>
+
+<div class="chart-container" *ngIf="chartData && !rendering">
+  <ngx-charts-line-chart
+    class="chart-container"
+    [results]="chartData"
+    [xAxis]="true"
+    [yAxis]="true"
+    [legend]="false"
+    [showXAxisLabel]="true"
+    [showYAxisLabel]="true"
+    [xAxisLabel]="'Date'"
+    [yAxisLabel]="'Price'"
+    [xAxisTickFormatting]="dateXTickFormatting"
+    [yAxisTickFormatting]="dateYTickFormatting"
+    (select)="select($event)">
+  </ngx-charts-line-chart>
+</div>

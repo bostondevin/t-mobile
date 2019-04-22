@@ -1,0 +1,141 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "",
+  "projects": {
+    "stock-history-stock-history": {
+      "root": "apps/stock-history/stock-history/",
+      "sourceRoot": "apps/stock-history/stock-history/src",
+      "projectType": "application",
+      "prefix": "t-mobile",
+      "schematics": {
+        "@nrwl/schematics:component": {
+          "style": "scss"
+        }
+      },
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/stock-history/stock-history",
+            "index": "apps/stock-history/stock-history/src/index.html",
+            "main": "apps/stock-history/stock-history/src/main.ts",
+            "polyfills": "apps/stock-history/stock-history/src/polyfills.ts",
+            "tsConfig": "apps/stock-history/stock-history/tsconfig.app.json",
+            "assets": [
+              "apps/stock-history/stock-history/src/favicon.ico",
+              "apps/stock-history/stock-history/src/assets"
+            ],
+            "styles": ["apps/stock-history/stock-history/src/styles.scss"],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/stock-history/stock-history/src/environments/environment.ts",
+                  "with": "apps/stock-history/stock-history/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "stock-history-stock-history:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "stock-history-stock-history:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "stock-history-stock-history:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/stock-history/stock-history/tsconfig.app.json",
+              "apps/stock-history/stock-history/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/builders:jest",
+          "options": {
+            "jestConfig": "apps/stock-history/stock-history/jest.config.js",
+            "tsConfig": "apps/stock-history/stock-history/tsconfig.spec.json",
+            "setupFile": "apps/stock-history/stock-history/src/test-setup.ts"
+          }
+        }
+      }
+    },
+    "stock-history-stock-history-e2e": {
+      "root": "apps/stock-history/stock-history-e2e",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/builders:cypress",
+          "options": {
+            "cypressConfig": "apps/stock-history/stock-history-e2e/cypress.json",
+            "tsConfig": "apps/stock-history/stock-history-e2e/tsconfig.e2e.json",
+            "devServerTarget": "stock-history-stock-history:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "stock-history-stock-history:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "apps/stock-history/stock-history-e2e/tsconfig.e2e.json",
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false,
+      "versionMismatch": false
+    },
+    "defaultCollection": "@nrwl/schematics"
+  },
+  "schematics": {
+    "@nrwl/schematics:application": {
+      "style": "scss"
+    },
+    "@nrwl/schematics:library": {
+      "style": "scss"
+    }
+  },
+  "defaultProject": "stock-history-stock-history"
+}
